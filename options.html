@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Download Mover — Rules</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <h1>Download Mover</h1>
+  <p class="hint">
+    One rule per line: <code>&lt;url-regex&gt; =&gt; &lt;target-path&gt;</code>.
+    Use named capture groups <code>(?&lt;name&gt;...)</code> in the URL and reference them as
+    <code>{name}</code> in the path. Numbered groups <code>{1}</code>, <code>{2}</code>… also work.
+    Lines starting with <code>#</code> are comments.
+  </p>
+  <p class="hint">
+    Paths are relative to your Downloads folder. Prefixes <code>~/Downloads/</code>, <code>~/</code>
+    and leading <code>/</code> are stripped. Arbitrary filesystem paths are not supported (Firefox
+    WebExtension limitation).
+  </p>
+
+  <textarea id="rules" spellcheck="false" placeholder="# Example&#10;zendesk\.com/agent/tickets/(?<ticket>[^/?#]+) => logs/{ticket}"></textarea>
+
+  <div class="actions">
+    <button id="save">Save</button>
+    <button id="import">Import file…</button>
+    <button id="export">Export file</button>
+    <input id="import-input" type="file" accept=".txt,.conf,text/plain" hidden>
+    <label class="debug-toggle"><input type="checkbox" id="debug"> Verbose logging</label>
+    <span id="status"></span>
+  </div>
+
+  <p class="hint">
+    Verbose logs appear in the background console: <code>about:debugging</code> →
+    <em>This Firefox</em> → Download Mover → <em>Inspect</em>.
+  </p>
+
+  <h2>Validation</h2>
+  <ul id="diagnostics"></ul>
+
+  <script src="options.js"></script>
+</body>
+</html>
